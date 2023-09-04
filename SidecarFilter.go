@@ -9,10 +9,13 @@ import (
 	"net/url"
 	"os"
 	"strconv"
+
+	cloudevents "github.com/cloudevents/sdk-go/v2"
 )
 
 type SidecarFilter struct {
-	Function TriFunction
+	TriFunction TriFunction
+	QuaFunction QuaFunction
 }
 
 type FilterChain struct {
@@ -53,7 +56,6 @@ func (chain *FilterChain) Next() {
 
 }
 
-// TODO solo copiar lo que hay dentro del propio nombre del body
 func (filter *SidecarFilter) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 	// Leemos el cuerpo original en un slice de bytes
 	bodyBytes, err := io.ReadAll(req.Body)
@@ -73,7 +75,19 @@ func (filter *SidecarFilter) ServeHTTP(res http.ResponseWriter, req *http.Reques
 	reqCopy.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
 
 	chain := &FilterChain{req: reqCopy, res: res}
-	filter.Function(req, res, chain)
+
+	if filter.QuaFunction != nil {
+		event, err := cloudevents.NewEventFromHTTPRequest(req)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		filter.QuaFunction(req, res, *event, chain)
+	} else {
+
+		filter.TriFunction(req, res, chain)
+	}
 }
 
 func (filter *SidecarFilter) Listen() {
