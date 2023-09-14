@@ -76,6 +76,16 @@ func (filter *SidecarFilter) ServeHTTP(res http.ResponseWriter, req *http.Reques
 
 	chain := &FilterChain{req: reqCopy, res: res}
 
+	value, exist := os.LookupEnv("PDISABLE")
+
+	if exist {
+		disable, err := strconv.ParseBool(value)
+
+		if disable && err == nil {
+			chain.Next()
+		}
+	}
+
 	if filter.QuaFunction != nil {
 		event, err := cloudevents.NewEventFromHTTPRequest(req)
 		if err != nil {
