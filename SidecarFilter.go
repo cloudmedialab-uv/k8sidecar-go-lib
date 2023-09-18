@@ -94,6 +94,7 @@ func (filter *SidecarFilter) ServeHTTP(res http.ResponseWriter, req *http.Reques
 
 		if disable && err == nil {
 			chain.Next()
+			return
 		}
 	}
 
