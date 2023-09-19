@@ -93,6 +93,7 @@ func (filter *SidecarFilter) ServeHTTP(res http.ResponseWriter, req *http.Reques
 		disable, err := strconv.ParseBool(value)
 
 		if disable && err == nil {
+			log.Println("SKIPPED sidecar")
 			chain.Next()
 			return
 		}
@@ -102,7 +103,7 @@ func (filter *SidecarFilter) ServeHTTP(res http.ResponseWriter, req *http.Reques
 	if filter.QuaFunction != nil {
 		event, err := cloudevents.NewEventFromHTTPRequest(req)
 		if err != nil {
-			fmt.Println(err)
+			log.Println(err)
 			return
 		}
 
