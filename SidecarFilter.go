@@ -87,11 +87,23 @@ func (filter *SidecarFilter) ServeHTTP(res http.ResponseWriter, req *http.Reques
 	// Initializing the filter chain with the copied request and original response.
 	chain := &FilterChain{req: reqCopy, res: res}
 
+	value, exist := os.LookupEnv("PDISABLE")
+
+	if exist {
+		disable, err := strconv.ParseBool(value)
+
+		if disable && err == nil {
+			log.Println("SKIPPED sidecar")
+			chain.Next()
+			return
+		}
+	}
+
 	// Checking if QuaFunction is defined, creating a cloud event from the request, and invoking QuaFunction.
 	if filter.QuaFunction != nil {
 		event, err := cloudevents.NewEventFromHTTPRequest(req)
 		if err != nil {
-			fmt.Println(err)
+			log.Println(err)
 			return
 		}
 
