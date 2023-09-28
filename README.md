@@ -2,6 +2,10 @@
 
 The Sidecar library is a robust and efficient Go package that enables effortless deployment of a server for forwarding HTTP requests to an incremented port within the same host.
 
+## Prerequisites
+
+-   [Go](https://go.dev/doc/install)
+
 ## Installation
 
 To install the Sidecar library, execute the following command:
