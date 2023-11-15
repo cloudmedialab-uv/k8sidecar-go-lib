@@ -1,11 +1,11 @@
-package ratelimiter
+package main
 
 import (
 	"net/http"
 	"sync"
 	"time"
 
-	sidecar "github.com/k8sidecar/go-lib"
+	sidecar "github.com/cloudmedialab-uv/k8sidecar-go-lib"
 )
 
 type RateLimiter struct {
