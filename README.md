@@ -21,7 +21,7 @@ Ensure you have Go installed on your machine and your `GOPATH` is set.
 he Sidecar library provides two custom function types for handling HTTP requests and responses: `TriFunction` and `QuaFunction`.
 
 -   `TriFunction` takes in an HTTP request, an HTTP response writer, and a FilterChain.
--   `QuaFunction` takes in an HTTP request, an HTTP response writer, a cloud event, and a FilterChain.
+-   `QuaFunction` takes in an HTTP request, an HTTP response writer, a Cloud Event, and a FilterChain.
 
 To use the Sidecar library, define your functions based on the `TriFunction` or `QuaFunction` type. Then, instantiate a `SidecarFilter` struct and assign your function to the `TriFunction` or `QuaFunction` field. Finally, call the Listen method on your SidecarFilter instance.
 
