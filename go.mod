@@ -1,4 +1,4 @@
-module github.com/k8sidecar/go-lib
+module github.com/cloudmedialab-uv/k8sidecar-go-lib
 
 go 1.20
 

@@ -2,7 +2,7 @@ module sidecar/example
 
 go 1.21.0
 
-require github.com/k8sidecar/go-lib v0.0.4
+require github.com/cloudmedialab-uv/k8sidecar-go-lib v1.0.0
 
 require (
 	github.com/cloudevents/sdk-go/v2 v2.14.0 // indirect

@@ -11,7 +11,7 @@ The Sidecar library is a robust and efficient Go package that enables effortless
 To install the Sidecar library, execute the following command:
 
 ```bash
-go get github.com/k8sidecar/go-lib@v0.0.4
+go get github.com/cloudmedialab-uv/k8sidecar-go-lib@v1.0.0
 ```
 
 Ensure you have Go installed on your machine and your `GOPATH` is set.
