@@ -24,8 +24,8 @@ type SidecarFilter struct {
 
 // FilterChain is a struct representing the chain of filters that a request goes through.
 type FilterChain struct {
-	req *http.Request
-	res http.ResponseWriter
+	Req *http.Request
+	Res http.ResponseWriter
 }
 
 // Next method for the FilterChain advances to the next service by incrementing the port and sending the request to it.
@@ -38,16 +38,16 @@ func (chain *FilterChain) Next() {
 	u := url.URL{
 		Scheme: "http",
 		Host:   fmt.Sprintf("%s:%d", "127.0.0.1", port),
-		Path:   chain.req.URL.Path,
+		Path:   chain.Req.URL.Path,
 	}
 
 	// Creating a new request with the updated URL.
-	req, err := http.NewRequest(chain.req.Method, u.String(), chain.req.Body)
+	req, err := http.NewRequest(chain.Req.Method, u.String(), chain.Req.Body)
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	req.Header = chain.req.Header
+	req.Header = chain.Req.Header
 
 	// Sending the request and logging the response.
 	res, err := http.DefaultClient.Do(req)
@@ -85,7 +85,7 @@ func (filter *SidecarFilter) ServeHTTP(res http.ResponseWriter, req *http.Reques
 	reqCopy.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
 
 	// Initializing the filter chain with the copied request and original response.
-	chain := &FilterChain{req: reqCopy, res: res}
+	chain := &FilterChain{Req: reqCopy, Res: res}
 
 	value, exist := os.LookupEnv("PDISABLE")
 
