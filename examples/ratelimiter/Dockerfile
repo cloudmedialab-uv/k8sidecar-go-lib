@@ -8,7 +8,7 @@ RUN echo "Host github.com\n\tHostName github.com\n\tUser git\n\tIdentityFile /ro
 RUN git clone git@github.com:cloudmedialab-uv/k8sidecar-go-lib.git
 RUN git config --global url."git@github.com:".insteadOf "https://github.com/"
 # Modules add
-COPY . .
+COPY src .
 RUN go get github.com/cloudmedialab-uv/k8sidecar-go-lib
 RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main main.go
