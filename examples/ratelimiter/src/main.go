@@ -101,5 +101,4 @@ func main() {
 		TriFunction: rl.RateLimiterMiddleware,
 	}
 	filter.Listen()
-
 }

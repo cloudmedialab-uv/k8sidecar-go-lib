@@ -1,6 +1,8 @@
 # Sidecar Library
 
-The Sidecar library is a robust and efficient Go package that enables effortless deployment of a server for forwarding HTTP requests to an incremented port within the same host.
+The Sidecar library is a robust and efficient Go package that enables the deployment of sidecar proxies that receive a HTTP request, perform some action, forwards the request to an incremented port within the same host, and then can perform some action before returning the response.
+
+The library can be used as is or can be modified to suit the needs.
 
 ## Prerequisites
 
@@ -38,4 +40,12 @@ filter := &sidecar.SidecarFilter{
 filter.Listen()
 ```
 
-For a detailed [usage example](https://github/).
+## Example: ratelimiter sidecar
+
+The folder [example/ratelimiter](example/ratelimiter) contains an example of the use of this library to build a sidecar that performs rate limit. The number of requests allowed can be passed in the environment variable `RATE` (by default 100).
+
+If the number of request is bigger than the configured rate then a  HTTP 429 Too Many Requests client error response is returned.
+
+We provide a Dockerfile to build the image and we also provide an image in dockerhub: `cloudmedialab/sidecar_ratelimiter:1.0.0`.
+
+See [k8sidecar](https://github.com/cloudmedialab-uv/k8sidecar) for an example of usage to define a Filter using this sidecar.
