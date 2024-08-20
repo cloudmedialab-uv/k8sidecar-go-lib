@@ -118,7 +118,7 @@ func (filter *SidecarFilter) ServeHTTP(res http.ResponseWriter, req *http.Reques
 func (filter *SidecarFilter) Listen() {
 	port := os.Getenv("PPORT")
 	http.Handle("/", filter)
-	err := http.ListenAndServe(":"+port, nil)
+	err := http.ListenAndServe("127.0.0.1:"+port, nil)
 	if err != nil {
 		log.Println(err)
 	}
