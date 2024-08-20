@@ -7,7 +7,6 @@ COPY src .
 RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main main.go
 
-
 FROM scratch
 COPY --from=builder /app/main /app
 CMD ["./main"]

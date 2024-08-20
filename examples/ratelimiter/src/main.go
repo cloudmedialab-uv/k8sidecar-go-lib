@@ -1,7 +1,10 @@
 package main
 
 import (
+	"log"
 	"net/http"
+	"os"
+	"strconv"
 	"sync"
 	"time"
 
@@ -58,7 +61,22 @@ func (rl *RateLimiter) RateLimiterMiddleware(req *http.Request, res http.Respons
 }
 
 func main() {
-	rl := NewRateLimiter(100, 10*time.Minute)
+
+	rateString, exist := os.LookupEnv("RATE")
+
+	if !exist {
+		log.Println("RATE env: using default 100")
+		rateString = "100"
+	}
+
+	rate, err := strconv.Atoi(rateString)
+
+	if err != nil {
+		log.Fatal("Error converting RATE env: using default 100")
+		rate = 100
+	}
+
+	rl := NewRateLimiter(rate, 10*time.Minute)
 
 	filter := &sidecar.SidecarFilter{
 		TriFunction: rl.RateLimiterMiddleware,

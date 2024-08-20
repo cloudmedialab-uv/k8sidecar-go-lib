@@ -1,6 +1,6 @@
 github.com/cloudevents/sdk-go/v2 v2.14.0 h1:Nrob4FwVgi5L4tV9lhjzZcjYqFVyJzsA56CwPaPfv6s=
 github.com/cloudevents/sdk-go/v2 v2.14.0/go.mod h1:xDmKfzNjM8gBvjaF8ijFjM1VYOVUEeUfapHMUX1T5To=
-github.com/cloudmedialab-uv/k8sidecar-go-lib v1.0.0 h1:30VJnPUp/HrjUNg7TFqz4NtYDTxcapKCvMUK++5/+Z8=
+github.com/cloudmedialab-uv/k8sidecar-go-lib v1.0.0 h1:0AmBrzmC7bU2tWrpgwJZS/EAFKT321jvHlnWhe6Fc40=
 github.com/cloudmedialab-uv/k8sidecar-go-lib v1.0.0/go.mod h1:J4EFwRikRV5aSLsp0UgyDJaYRWPpCxp5Wy5cpaGV9+g=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
