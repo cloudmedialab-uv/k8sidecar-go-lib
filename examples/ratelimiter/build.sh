@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TAG="1.0.0"
-REPO_RATELIMITER=cloudmedialab/sidecar_ratelimiter
+REPO_RATELIMITER=cloudmedialab/sidecar-ratelimiter
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
