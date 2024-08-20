@@ -2,9 +2,11 @@ package main
 
 import (
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -36,7 +38,7 @@ func (rl *RateLimiter) Allow(ip string) bool {
 	defer rl.mu.Unlock()
 
 	v, exists := rl.visitors[ip]
-	if !exists || time.Now().Sub(v.lastAccessed) > rl.refreshTimeout {
+	if !exists || time.Since(v.lastAccessed) > rl.refreshTimeout {
 		rl.visitors[ip] = &Visitor{lastAccessed: time.Now(), requestCount: 1}
 		return true
 	}
@@ -50,8 +52,25 @@ func (rl *RateLimiter) Allow(ip string) bool {
 	return false
 }
 
+func getClientIP(req *http.Request) string {
+	forwarded := req.Header.Get("X-Forwarded-For")
+	if forwarded != "" {
+
+		ips := strings.Split(forwarded, ",")
+		return strings.TrimSpace(ips[0])
+	}
+
+	ip, _, err := net.SplitHostPort(req.RemoteAddr)
+	if err != nil {
+		return req.RemoteAddr
+	}
+
+	return ip
+}
+
 func (rl *RateLimiter) RateLimiterMiddleware(req *http.Request, res http.ResponseWriter, chain *sidecar.FilterChain) {
-	clientIP := req.RemoteAddr
+	clientIP := getClientIP(req)
+	log.Println("client IP " + clientIP)
 	if !rl.Allow(clientIP) {
 		res.WriteHeader(http.StatusTooManyRequests)
 		res.Write([]byte("Too many requests"))
@@ -76,7 +95,7 @@ func main() {
 		rate = 100
 	}
 
-	rl := NewRateLimiter(rate, 10*time.Minute)
+	rl := NewRateLimiter(rate, time.Minute)
 
 	filter := &sidecar.SidecarFilter{
 		TriFunction: rl.RateLimiterMiddleware,
