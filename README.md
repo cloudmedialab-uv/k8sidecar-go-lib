@@ -46,6 +46,6 @@ The folder [example/ratelimiter](example/ratelimiter) contains an example of the
 
 If the number of request is bigger than the configured rate then a  HTTP 429 Too Many Requests client error response is returned.
 
-We provide a Dockerfile to build the image and we also provide an image in dockerhub: `cloudmedialab/sidecar_ratelimiter:1.0.0`.
+We provide a Dockerfile to build the image and we also provide an image in dockerhub: `cloudmedialab/sidecar-ratelimiter:1.0.0`.
 
 See [k8sidecar](https://github.com/cloudmedialab-uv/k8sidecar) for an example of usage to define a Filter using this sidecar.
