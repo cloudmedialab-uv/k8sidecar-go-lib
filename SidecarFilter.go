@@ -57,13 +57,21 @@ func (chain *FilterChain) Next() {
 	}
 	defer res.Body.Close()
 
-	body, err := io.ReadAll(res.Body)
+	for key, values := range res.Header {
+		for _, value := range values {
+			chain.Res.Header().Add(key, value)
+		}
+	}
+
+	chain.Res.WriteHeader(res.StatusCode)
+
+	body, err := io.Copy(chain.Res, res.Body)
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
-	log.Println(string(body))
+	log.Printf("Response copied successfully: %d bytes\n", body)
 }
 
 // ServeHTTP method implements the http.Handler interface. It processes the request, checks if it should invoke QuaFunction or TriFunction, and handles the request accordingly.
