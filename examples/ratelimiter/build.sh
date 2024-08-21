@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAG="1.0.0"
+TAG="15.0.1"
 
 # CHANGE THIS TO USE YOUR IMAGE REGISTRY AND REPO
 REPO_RATELIMITER=cloudmedialab/sidecar-ratelimiter

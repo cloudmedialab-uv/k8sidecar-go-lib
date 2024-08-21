@@ -2,6 +2,7 @@ module k8sidecar/example
 
 go 1.21.0
 
+replace github.com/cloudmedialab-uv/k8sidecar-go-lib => ./k8sidecar-go-lib
 require github.com/cloudmedialab-uv/k8sidecar-go-lib v1.0.0
 
 require (
