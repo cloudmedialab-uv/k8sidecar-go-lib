@@ -37,7 +37,7 @@ func (chain *FilterChain) Next() {
 	// Constructing the next service's URL.
 	u := url.URL{
 		Scheme: "http",
-		Host:   fmt.Sprintf("%s:%d", "127.0.0.1", port),
+		Host:   fmt.Sprintf("%s:%d", "0.0.0.0", port),
 		Path:   chain.Req.URL.Path,
 	}
 
@@ -125,9 +125,9 @@ func (filter *SidecarFilter) ServeHTTP(res http.ResponseWriter, req *http.Reques
 // Listen method starts the SidecarFilter server on the port specified by the "PPORT" environment variable.
 func (filter *SidecarFilter) Listen() {
 	port := os.Getenv("PPORT")
-	log.Println("Starting server on port: 127.0.0.1:" + port)
+	log.Println("Starting server on port: 0.0.0.0:" + port)
 	http.Handle("/", filter)
-	err := http.ListenAndServe("127.0.0.1:"+port, nil)
+	err := http.ListenAndServe("0.0.0.0:"+port, nil)
 	if err != nil {
 		log.Println("Error starting server:", err)
 	}
