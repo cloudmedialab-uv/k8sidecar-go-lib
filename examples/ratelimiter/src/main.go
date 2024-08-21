@@ -9,7 +9,6 @@ import (
 	"strings"
 	"sync"
 	"time"
-
 	sidecar "github.com/cloudmedialab-uv/k8sidecar-go-lib"
 )
 
@@ -44,9 +43,9 @@ func (rl *RateLimiter) Allow(ip string) bool {
 	}
 
 	if v.requestCount < rl.rate {
-		v.requestCount++
+	   v.requestCount++
 		v.lastAccessed = time.Now()
-		return true
+	   return true
 	}
 
 	return false
@@ -95,7 +94,9 @@ func main() {
 		rate = 100
 	}
 
-	rl := NewRateLimiter(rate, time.Minute)
+   log.Println("RATE (max requests per second): " + strconv.Itoa(rate))
+
+	rl := NewRateLimiter(rate, time.Second)
 
 	filter := &sidecar.SidecarFilter{
 		TriFunction: rl.RateLimiterMiddleware,
