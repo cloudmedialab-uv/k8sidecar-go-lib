@@ -125,12 +125,10 @@ func (filter *SidecarFilter) ServeHTTP(res http.ResponseWriter, req *http.Reques
 // Listen method starts the SidecarFilter server on the port specified by the "PPORT" environment variable.
 func (filter *SidecarFilter) Listen() {
 	port := os.Getenv("PPORT")
-	log.Println(port)
+	log.Println("Starting server on port: 127.0.0.1:" + port)
 	http.Handle("/", filter)
 	err := http.ListenAndServe("127.0.0.1:"+port, nil)
 	if err != nil {
-		log.Println(err)
+		log.Println("Error starting server:", err)
 	}
-
-	log.Println("listening on port: 127.0.0.1:" + port)
 }
