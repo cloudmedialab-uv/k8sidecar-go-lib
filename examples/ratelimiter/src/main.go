@@ -91,7 +91,7 @@ func main() {
 	rate, err := strconv.Atoi(rateString)
 
 	if err != nil {
-		log.Fatal("Error converting RATE env: using default 100")
+		log.Println("Error converting RATE env: using default 100")
 		rate = 100
 	}
 
