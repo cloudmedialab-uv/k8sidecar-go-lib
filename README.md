@@ -42,7 +42,7 @@ filter.Listen()
 
 ## Example: ratelimiter sidecar
 
-The folder [example/ratelimiter](example/ratelimiter) contains an example of the use of this library to build a sidecar that performs rate limit. The number of requests allowed can be passed in the environment variable `RATE` (by default 100).
+The folder [example/ratelimiter](example/ratelimiter) contains an example of the use of this library to build a sidecar that performs rate limit. The number of requests allowed per second can be passed in the environment variable `RATE` (by default 100).
 
 If the number of request is bigger than the configured rate then a  HTTP 429 Too Many Requests client error response is returned.
 
