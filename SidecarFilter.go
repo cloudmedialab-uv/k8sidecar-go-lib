@@ -130,4 +130,6 @@ func (filter *SidecarFilter) Listen() {
 	if err != nil {
 		log.Println(err)
 	}
+
+	log.Println("listening on port: 127.0.0.1:" + port)
 }
