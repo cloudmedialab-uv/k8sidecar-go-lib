@@ -1,6 +1,8 @@
 #!/bin/bash
 
 TAG="1.0.0"
+
+# CHANGE THIS TO USE YOUR IMAGE REGISTRY AND REPO
 REPO_RATELIMITER=cloudmedialab/sidecar-ratelimiter
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
