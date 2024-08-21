@@ -44,7 +44,7 @@ func (rl *RateLimiter) Allow(ip string) bool {
 
 	if v.requestCount < rl.rate {
 	   v.requestCount++
-		v.lastAccessed = time.Now()
+	   v.lastAccessed = time.Now()
 	   return true
 	}
 
@@ -94,7 +94,7 @@ func main() {
 		rate = 100
 	}
 
-   log.Println("RATE (max requests per second): " + strconv.Itoa(rate))
+        log.Println("RATE (max requests per second): " + strconv.Itoa(rate))
 
 	rl := NewRateLimiter(rate, time.Second)
 
